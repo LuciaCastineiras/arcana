@@ -5,7 +5,6 @@ tags:
 alias:
   - grafo
   - grafos
-  - graph
   - red
 ---
 ## 1. Qué es y cómo funciona
