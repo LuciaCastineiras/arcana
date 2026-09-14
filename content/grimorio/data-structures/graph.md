@@ -151,37 +151,36 @@ print(g.bfs("A"))  # ['A', 'B', 'C', 'D']
 
 ### Casos de uso
 
-- **Redes sociales:** modelar seguidores, amistades o conexiones entre usuarios.
-- **Sistemas de mapas y rutas:** ciudades como vértices, caminos como aristas ponderadas por distancia o tiempo.
-- **Dependencias:** correlatividades de materias, dependencias entre paquetes o tareas de un build (ordenamiento topológico).
-- **Motores de recomendación:** relaciones entre usuarios y productos para inferir afinidades.
-- **Redes de comunicación y transporte de datos:** enrutamiento de paquetes entre nodos de una red.
+- Redes sociales: seguidores, amistades, sugerencias de contactos.
+- Mapas y rutas: ciudades como vértices, caminos como aristas ponderadas por distancia o tiempo.
+- Dependencias: correlatividades, paquetes o tareas de un build (orden topológico sobre un DAG).
+- Redes de comunicación: enrutamiento de paquetes entre nodos.
 
 ### Cuándo NO usarlo
 
-- Cuando la relación entre los datos es estrictamente jerárquica (un padre, varios hijos): un árbol es más simple y eficiente.
-- Cuando la relación es lineal (cada elemento se conecta solo con el siguiente): alcanza con una [[linked list]].
-- Cuando el grafo sería trivialmente denso y pequeño y solo interesa la presencia de una relación puntual: una [[map]] o [[set]] de pares puede ser suficiente sin la sobrecarga conceptual de un grafo.
+- Si la relación es jerárquica: un árbol es más simple y no necesita visitados.
+- Si es lineal: alcanza con una [[linked list]].
+- Si solo importa si una relación puntual existe, sin encadenarla: un [[map]] o [[set]] de pares alcanza.
 
 ### Comparaciones
 
-- **vs Árbol:** un árbol es un grafo conexo, acíclico y con una raíz definida; no permite múltiples caminos entre dos nodos. Un grafo general no tiene esas restricciones y puede tener ciclos y múltiples caminos entre el mismo par de vértices.
-- **vs Lista de adyacencia vs Matriz de adyacencia:** la lista es preferible en grafos dispersos (la mayoría de los casos reales) por su menor uso de memoria; la matriz conviene en grafos densos o cuando se necesita consultar la existencia de una arista específica en $O(1)$ de forma constante.
-- **vs Hash Table:** una hash table asocia una clave a un único valor; un grafo asocia un vértice a un conjunto de relaciones con otros vértices, permitiendo modelar conexiones de muchos a muchos.
+- **vs Árbol:** es conexo, acíclico y con una raíz definida; no permite múltiples caminos entre dos nodos. Un grafo general no tiene esas restricciones y puede tener ciclos y múltiples caminos entre el mismo par de vértices.
+- **vs [[map]] / [[hash table]]:** un map asocia cada clave a **un** valor y responde "¿qué le corresponde a `u`?". El grafo asocia un **conjunto** de relaciones con sus atributos. La diferencia aparece al encadenar: el map no responde "¿qué alcanzo partiendo de `u`?".
+- **vs [[set]] de pares:** un `set` de tuplas `(u, v)` responde "¿existe esta relación?" en $O(1)$, pero no da los vecinos de `u` sin recorrerlo entero, y sobre esa operación se apoya todo recorrido.
+- **vs [[linked list]] / [[array]]:** modelan sucesión o posición, no relación arbitraria. Un grafo donde cada vértice tiene a lo sumo un vecino *es* una lista enlazada.
 
 ### Ventajas / desventajas
 
 **Ventajas:**
 
-- Máxima flexibilidad para modelar relaciones arbitrarias entre entidades.
-- Existe una amplia base de algoritmos bien estudiados (BFS, DFS, Dijkstra, Kruskal, entre otros) para resolver problemas sobre grafos.
-- Se adapta tanto a relaciones simples (no ponderadas) como a escenarios más ricos (dirigidos, ponderados, con múltiples atributos por arista).
+- Modela relaciones arbitrarias sin imponer restricciones de forma, y agregarles pesos o sentido no obliga a cambiar de estructura.
+- Tiene detrás una familia enorme de algoritmos ya estudiados (BFS, DFS, Dijkstra, Kruskal, flujo máximo).
 
 **Desventajas:**
 
-- Mayor complejidad conceptual y de implementación que estructuras lineales.
-- Muchos algoritmos sobre grafos son costosos en grafos grandes y densos.
-- Elegir mal la representación (lista vs. matriz) puede degradar significativamente el rendimiento según el caso de uso.
+- **La representación es una decisión temprana y cara de revertir.** Matriz en un grafo disperso de 100.000 vértices son $10^{10}$ celdas; lista cuando el algoritmo consulta `existe_arista` en un bucle degrada esa consulta de $O(1)$ a $O(\text{grado}(u))$. El error no se nota hasta que el grafo crece.
+- **Los invariantes se rompen fácil.** En no dirigidos cada arista vive duplicada y ambas copias deben actualizarse juntas; borrar un vértice exige limpiar sus aristas entrantes. Si algo se omite, el síntoma aparece mucho después.
+- **Varios problemas clásicos sobre grafos son costosos o directamente intratables** (caminos mínimos entre todos los pares, ciclo hamiltoniano, coloreo mínimo), algo que una estructura lineal ni plantea. Además, sin raíz ni aciclicidad garantizada, cualquier recorrido exige mantener los visitados a mano: olvidarlo no da error, entra en un ciclo infinito.
 
 ### Señales de reconocimiento
 
