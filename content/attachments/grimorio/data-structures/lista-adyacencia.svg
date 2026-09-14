@@ -54,10 +54,12 @@
 
     <text class="txt list" x="0" y="190">C</text>
     <line x1="50" y1="181" x2="120" y2="181" stroke="#6f91bd" stroke-width="2" marker-end="url(#arrow)"/>
-    <text class="txt list" x="145" y="190">[A, B, D]</text>
+    <text class="txt list" x="145" y="190">[D]</text>
 
     <text class="txt list" x="0" y="285">D</text>
     <line x1="50" y1="276" x2="120" y2="276" stroke="#6f91bd" stroke-width="2" marker-end="url(#arrow)"/>
     <text class="txt list" x="145" y="285">[C]</text>
   </g>
+
+  <text class="txt small" x="600" y="558" text-anchor="middle">Grafo dirigido: cada vertice guarda solo sus vecinos de salida.</text>
 </svg>
