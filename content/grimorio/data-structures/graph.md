@@ -31,6 +31,8 @@ Un Grafo se define formalmente como un par $G = (V, E)$, donde:
 - **Conectividad:** un grafo es conexo si existe un camino entre cualquier par de vértices. Un DAG (*Directed Acyclic Graph*) es un grafo dirigido sin ciclos.
 - **Densidad:** un grafo es *disperso* (sparse) si $|E|$ es cercano a $|V|$, y *denso* si se acerca a $|V|^2$.
 
+![](/attachments/grimorio/data-structures/denso-disperso.svg)
+
 ### Representación
 
 Hay dos formas principales de representar un grafo en memoria:
@@ -43,7 +45,9 @@ Hay dos formas principales de representar un grafo en memoria:
 
 ![](/attachments/grimorio/data-structures/matriz-adyacencia.svg)
 
-La lista de adyacencia es más eficiente en espacio para grafos dispersos (el caso más común en la práctica) y es la representación por defecto. La matriz de adyacencia conviene cuando el grafo es denso o se necesita consultar si existe una arista específica en $O(1)$.
+La diferencia está en **qué guardan**. La lista almacena solo las aristas que existen: su memoria crece con $|E|$ y pedir los vecinos de un vértice cuesta lo que ese vértice tenga. La matriz reserva una celda para **cada par posible**, exista la arista o no: ocupa siempre $|V|^2$, pero responder "¿hay arista de $u$ a $v$?" es un acceso por índice, en $O(1)$.
+
+Como los grafos reales suelen ser dispersos, **la lista es la opción por defecto**: guardar $|V|^2$ celdas para unas pocas aristas desperdicia casi toda la memoria. La matriz queda para grafos densos o chicos, y para algoritmos que consultan aristas puntuales en un bucle.
 
 ---
 
@@ -57,7 +61,9 @@ La lista de adyacencia es más eficiente en espacio para grafos dispersos (el ca
 - **`eliminar_vertice(v)`:** quita un vértice y todas sus aristas asociadas.
 - **`vecinos(v)`:** devuelve los vértices adyacentes a `v`.
 - **`existe_arista(u, v)`:** indica si hay conexión directa entre `u` y `v`.
-- **`recorrer()`:** visita todos los vértices alcanzables, típicamente con BFS o DFS.
+- **`recorrer()`:** visita todos los vértices alcanzables, típicamente con BFS (en anchura) o DFS (en profundidad).
+
+![](/attachments/grimorio/data-structures/bfs-dfs.svg)
 
 ### Complejidad
 
@@ -71,9 +77,11 @@ Sean $|V|$ la cantidad de vértices y $|E|$ la cantidad de aristas.
 | `eliminar_vertice` | $O(\|V\| + \|E\|)$ | $O(\|V\|^2)$ |
 | `existe_arista(u, v)` | $O(\text{grado}(u))$ | $O(1)$ |
 | `vecinos(v)` | $O(\text{grado}(v))$ | $O(\|V\|)$ |
+| `BFS()` / `DFS()` completos | $O(\lvert V\rvert + \lvert E\rvert)$ | $O(\lvert V\rvert^2)$<sup>2</sup> |
 | Espacio | $O(\|V\| + \|E\|)$ | $O(\|V\|^2)$ |
 
 <sup>1</sup>Requiere redimensionar la matriz completa para agregar una fila y columna nuevas.
+<sup>2</sup>Por cada vértice, la matriz obliga a revisar las $|V|$ celdas de su fila aunque casi todas estén vacías.
 
 ### Detalles operativos
 
@@ -99,6 +107,8 @@ La forma más común es usar una [[hash table]] (ej. `dict` en Python) donde cad
 ### Ejemplo de código
 
 ```python
+from collections import deque
+
 class Grafo:
     def __init__(self, dirigido=False):
         self.dirigido = dirigido
@@ -118,31 +128,43 @@ class Grafo:
         return self.adyacencia.get(v, {})
 
     def existe_arista(self, u, v):
-        return v in self.adyacencia.get(u, {})
+        return v in self.vecinos(u)
 
-    def bfs(self, inicio):
-        visitados = {inicio}
-        cola = [inicio]
-        orden = []
+    def camino_mas_corto(self, inicio, destino):
+        """BFS: camino con menos aristas entre dos vértices, o None si no hay."""
+        if inicio not in self.adyacencia:
+            return None
+        previo = {inicio: None}
+        cola = deque([inicio])
         while cola:
-            actual = cola.pop(0)
-            orden.append(actual)
+            actual = cola.popleft()
+            if actual == destino:
+                camino = []
+                while actual is not None:
+                    camino.append(actual)
+                    actual = previo[actual]
+                return camino[::-1]
             for vecino in self.vecinos(actual):
-                if vecino not in visitados:
-                    visitados.add(vecino)
+                if vecino not in previo:
+                    previo[vecino] = actual
                     cola.append(vecino)
-        return orden
+        return None
 ```
 
 #### Ejemplo de uso típico
 
-```python
-g = Grafo()
-g.agregar_arista("A", "B")
-g.agregar_arista("A", "C")
-g.agregar_arista("C", "D")
+Grados de separación: la cadena más corta de compañeros de equipo entre dos Pokémon (dos Pokémon están conectados si compartieron equipo en alguna partida).
 
-print(g.bfs("A"))  # ['A', 'B', 'C', 'D']
+```python
+red = Grafo()  #no dirigido: si A fue compañero de B, B lo fue de A
+for a, b in [("Pikachu", "Charmander"), ("Charmander", "Bulbasaur"), ("Bulbasaur", "Squirtle"),
+             ("Pikachu", "Eevee"), ("Eevee", "Squirtle")]:
+    red.agregar_arista(a, b)
+
+camino = red.camino_mas_corto("Pikachu", "Squirtle")
+print(camino)           #['Pikachu', 'Eevee', 'Squirtle'] (no pasa por Charmander y Bulbasaur)
+print(len(camino) - 1)  #2 grados de separación
+print(red.camino_mas_corto("Pikachu", "Mewtwo"))  #None: no está en la red
 ```
 
 ---
@@ -205,23 +227,34 @@ print(g.bfs("A"))  # ['A', 'B', 'C', 'D']
 
 - Cada vértice suele modelarse como un **[[struct]]** que agrupa su valor y sus referencias a los vecinos.
 - La representación por lista de adyacencia se implementa habitualmente sobre una **[[hash table]]** (vértice → colección de vecinos) o sobre un **[[array]]** cuando los vértices son identificables por índices enteros consecutivos.
-- El recorrido en anchura (BFS) usa una cola (ver **[[deque]]**), mientras que el recorrido en profundidad (DFS) usa una pila (ver **[[stack]]**) o la pila de llamadas mediante recursión.
+- BFS necesita una queue (FIFO) y DFS un [[stack]] (LIFO). No es un detalle de implementación: define el orden de exploración, y cambiar una por otra convierte un recorrido en el otro.
 - Un **[[set]]** se usa típicamente para llevar el registro de los vértices ya visitados durante un recorrido.
 - Una **[[linked list]]** y un árbol son, conceptualmente, grafos con restricciones adicionales sobre su cantidad de conexiones.
 
 ### Notas avanzadas
 
-#### Grafos a gran escala
+**Persistencia.** Una versión persistente conserva los estados anteriores compartiendo los vértices no tocados, en vez de copiar el grafo entero: permite deshacer o ver cómo era la red antes. En disco lo cubren las bases de datos de grafos (Neo4j), que guardan las aristas como punteros físicos.
 
-Cuando $|V|$ y $|E|$ son muy grandes (ej. redes sociales con millones de usuarios), ni la lista ni la matriz de adyacencia en memoria son viables por sí solas. Se recurre a representaciones comprimidas, particionado del grafo entre múltiples máquinas, o bases de datos especializadas (bases de datos de grafos como Neo4j), que optimizan el almacenamiento y las consultas de vecindad a gran escala.
+**Concurrencia.** Compartir un grafo mutable es incómodo porque **una arista toca dos vértices a la vez**: con un lock por vértice hay que tomar los dos en un orden global fijo, o aparecen deadlocks. Lo habitual es congelarlo en solo lectura durante los recorridos, que al no escribir paralelizan bien. A gran escala se particiona entre máquinas (modelo Pregel/BSP): cada una procesa sus vértices y al final de cada ronda intercambia mensajes por las aristas que cruzan particiones.
 
-#### Algoritmos fundamentales
-
-El grafo como estructura es la base de una familia extensa de algoritmos: BFS y DFS para recorridos, Dijkstra y Bellman-Ford para caminos mínimos, Kruskal y Prim para árboles de expansión mínima, y algoritmos de flujo máximo. La elección de representación (lista vs. matriz) impacta directamente en la complejidad final de estos algoritmos.
+**Aleatoriedad.** Cuando el grafo no entra en memoria se abandona la respuesta exacta: las *caminatas aleatorias* saltan a un vecino al azar y permiten estimar la importancia de un vértice sin recorrerlo entero, que es la idea detrás de PageRank. Los **grafos aleatorios** (Erdős–Rényi, cada arista existe con probabilidad $p$) sirven de línea de base: distinguen qué propiedades de una red real son estructurales y cuáles saldrían igual por azar.
 
 ---
 
 ## 6. Referencias y recursos
 
-- [[COR2011]] - Capítulo 22: "Elementary Graph Algorithms".
-- [[KLE2005]] - Capítulo 3: "Graphs".
+- [[COR2011]] - Capítulo 22: "Elementary Graph Algorithms" (representaciones, BFS, DFS, orden topológico); capítulos 23 a 26 para expansión mínima, caminos mínimos y flujo.
+- [[KLE2005]] - Capítulo 3: "Graphs", con foco en cómo modelar un problema como grafo.
+- [[SED2011]] - Capítulo 4: "Graphs", con implementaciones completas.
+- [[LAF2002]] - Capítulos 12 y 13: "Graphs" y "Weighted Graphs".
+- [[Wikipedia - PageRank]](https://es.wikipedia.org/wiki/PageRank) - Qué es y como funciona PageRank.
+
+**Visualizaciones:**
+
+- [VisuAlgo - Graph Structures](https://visualgo.net/en/graphds) - armar un grafo y ver su lista y su matriz.
+- [VisuAlgo - Graph Traversal](https://visualgo.net/en/dfsbfs) - BFS y DFS paso a paso.
+- [NetworkX](https://networkx.org/documentation/stable/tutorial.html) - librería de grafos en Python.
+
+**Casos de uso conocidos:**
+
+- [Neo4j - Graph Database Concepts](https://neo4j.com/docs/getting-started/appendix/graphdb-concepts/) - cómo se persiste un grafo.
