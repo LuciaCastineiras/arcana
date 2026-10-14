@@ -41,7 +41,7 @@ A diferencia de árboles auto-balanceados como [[avl tree]] o [[red black tree]]
 
 Una representación conceptual de un acceso podría ser:
 
-![](splay-tree-acceso.svg)
+![Acceso a 40 en una cadena 10, 20, 30, 40: el 40 sube a la raíz](splay-tree-acceso.svg)
 
 ## 2. Operaciones y complejidad
 
@@ -148,15 +148,15 @@ Vistas gráficamente (en todos los casos se hace `splay(x)`):
 
 Zig:
 
-![](splay-tree-zig.svg)
+![Caso zig: una rotación lleva a x a la raíz](splay-tree-zig.svg)
 
 Zig-Zig:
 
-![](splay-tree-zig-zig.svg)
+![Caso zig-zig: se rota primero el abuelo z y después el padre y](splay-tree-zig-zig.svg)
 
 Zig-Zag:
 
-![](splay-tree-zig-zag.svg)
+![Caso zig-zag: se rota primero el padre y y después el abuelo z](splay-tree-zig-zag.svg)
 
 ### Ejemplo de uso
 
@@ -177,11 +177,11 @@ print(sp.root.key) # 10
 
 Para inserción, se inserta el elemento y luego se le realiza splay hacía la raíz. Ejemplo insertando 20:
 
-![](splay-tree-insert.svg)
+![Inserción de 20 seguida de splay hasta la raíz](splay-tree-insert.svg)
 
 Para búsqueda, se busca el elemento y al encontrarlo se le realiza splay. Ejemplo buscando 10:
 
-![](splay-tree-find.svg)
+![Búsqueda de 10 seguida de splay hasta la raíz](splay-tree-find.svg)
 
 
 ## 4. Uso y criterio
