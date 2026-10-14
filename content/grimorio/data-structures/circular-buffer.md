@@ -1,8 +1,9 @@
 ---
-title: Buffer Circular
+title: Circular Buffer
 tags:
   - data-structures
 alias:
+  - buffer circular
   - circular queue
   - cyclic buffer
   - ring buffer

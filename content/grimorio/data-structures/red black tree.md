@@ -266,7 +266,7 @@ Valor: 30 | Color: negro
 
 ---
 ## 6. Referencias y recursos
-- [[COR2011]] - Chapter 13. Red-Black Trees
+- [[COR2011]] - Chapter 13.
 - **Linux Kernel Organization.** _Red-black Trees (rbtree) in Linux_. Linux Kernel Documentation. [https://docs.kernel.org/core-api/rbtree.html](https://docs.kernel.org/core-api/rbtree.html)
 - **GeeksforGeeks.** (2023, 10 de agosto). _Red Black Tree in Python_. [https://www.geeksforgeeks.org/red-black-tree-in-python/](https://www.geeksforgeeks.org/red-black-tree-in-python/)
 - **ByteQuest.** (2024, 13 de octubre). _Red-Black Trees Visually Explained_ [Video]. YouTube. [Red-Black Trees Visually Explained](https://www.youtube.com/watch?v=TlfQOdeFy0Y)

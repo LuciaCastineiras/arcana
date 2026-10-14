@@ -1,8 +1,8 @@
 ---
-title: 'Árbol Binario de Búsqueda'
+title: 'Binary Search Tree'
 tags:
   - data-structures
-alias: ['BST', 'Binary Search Tree', 'Árbol binario de búsqueda']
+alias: ['BST', 'Árbol binario de búsqueda']
 ---
 ## 1. Qué es y cómo funciona
 
@@ -153,8 +153,8 @@ Los BST pueden implementarse con persistencia, permitiendo conservar versiones a
 ## 6. Referencias y recursos
 Libros de Referencia
 
-- [[COR2011]] Chapter 12 - Introduction to algorithms.
-- [[DRO1995]] Chapter 7 - Binary Search Trees.
+- [[COR2011]] - Chapter 12.
+- [[DRO1995]] - Chapter 7.
 
 Artículos
 - [balanced binary tree ](https://xlinux.nist.gov/dads/HTML/balancedbitr.html)

@@ -1,10 +1,7 @@
 ---
-title: k-d tree
+title: K-D Tree
 tags:
   - data-structures
-  - tree
-  - espacial
-  - dimensiones
 alias:
   - kd tree
   - k-d tree

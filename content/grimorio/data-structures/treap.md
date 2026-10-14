@@ -35,7 +35,7 @@ Todo se apoya en dos primitivas; el resto se expresa en términos de ellas.
 
 - `split(T, x)` parte el treap en dos: uno con las claves $\le x$ y otro con las mayores
 - `merge(T1, T2)` une dos treaps, bajo la precondición de que toda clave de `T1` sea menor que toda clave de `T2`
-- `find(x)` busca una clave descendiendo por comparación, igual que en un [[binary search tree]]
+- `find(x)` busca una clave descendiendo por comparación, igual que en un [[binary-search-tree]]
 - `insert(x)` genera una prioridad aleatoria, hace `split` por `x` y dos `merge` con el nodo nuevo
 - `erase(x)` ubica el nodo y lo reemplaza por el `merge` de sus dos hijos
 - `union(T1, T2)` combina dos treaps cualesquiera, sin la precondición de `merge`
@@ -171,10 +171,10 @@ print(list(t.inorder())) # [1, 6, 8, 10]
 
 ### Comparaciones
 - **vs [[hash table]]**: ofrece $O(1)$ promedio pero sin orden. Usá Treap cuando necesitás conservar el orden o hacer consultas por rango.
-- **vs [[binary search tree]] simple**: un BST puede degradar a $O(n)$ según el orden de inserción; el Treap evita esa degradación gracias a las prioridades aleatorias, aunque sin garantizarlo en el peor caso.
+- **vs [[binary-search-tree]] simple**: un BST puede degradar a $O(n)$ según el orden de inserción; el Treap evita esa degradación gracias a las prioridades aleatorias, aunque sin garantizarlo en el peor caso.
 
 ### Ventajas / desventajas
-**Ventajas:** mantiene el orden con operaciones eficientes, `split`/`merge` naturales para partir y unir conjuntos, implementación más simple que [[avl tree]] o [[red-black tree]], no depende del orden de inserción.
+**Ventajas:** mantiene el orden con operaciones eficientes, `split`/`merge` naturales para partir y unir conjuntos, implementación más simple que [[avl tree]] o [[red black tree]], no depende del orden de inserción.
 
 **Desventajas:** sin garantía de peor caso, algo más de memoria que un BST simple por guardar la prioridad, depende de un generador de números aleatorios de buena calidad.
 
@@ -193,16 +193,16 @@ print(list(t.inorder())) # [1, 6, 8, 10]
 
 ### Relación con otras estructuras
 - **BST (Árbol Binario de Búsqueda)** y **Heap**: el Treap es, en esencia, un BST al que se le agrega una segunda restricción (la del heap) para resolver su problema estructural más grave: el desbalance en el peor caso.
-- **Árboles balanceados deterministas ([[avl tree]], [[red-black tree]])**: resuelven el mismo problema que el Treap (evitar degeneración a $O(n)$) pero mediante reglas de rebalanceo estrictas y deterministas, en lugar de aleatoriedad. El Treap logra una complejidad esperada equivalente con una implementación considerablemente más simple, a costa de perder la garantía de peor caso estricta.
+- **Árboles balanceados deterministas ([[avl tree]], [[red black tree]])**: resuelven el mismo problema que el Treap (evitar degeneración a $O(n)$) pero mediante reglas de rebalanceo estrictas y deterministas, en lugar de aleatoriedad. El Treap logra una complejidad esperada equivalente con una implementación considerablemente más simple, a costa de perder la garantía de peor caso estricta.
 
 
 ### Notas avanzadas
 
 #### Caching y localidad
-Al no tener rotaciones deterministas rígidas como el [[avl tree]], el patrón de acceso a memoria de un Treap puede ser menos predecible; en aplicaciones sensibles al rendimiento de caché de CPU, esto es una consideración a tener en cuenta frente a estructuras más compactas como [[b tree]].
+Al no tener rotaciones deterministas rígidas como el [[avl tree]], el patrón de acceso a memoria de un Treap puede ser menos predecible; en aplicaciones sensibles al rendimiento de caché de CPU, esto es una consideración a tener en cuenta frente a estructuras más compactas como [[b-tree]].
 
 #### Concurrencia
-Las operaciones de `split` y `merge` son especialmente amigables para el paralelismo, ya que dividen el problema en subárboles independientes. Existen versiones de Treaps concurrentes que aprovechan esta propiedad para permitir accesos simultáneos con baja contención, algo mucho más difícil de lograr en [[avl tree]] o [[red-black tree]] debido a sus reglas de rebalanceo rígidas.
+Las operaciones de `split` y `merge` son especialmente amigables para el paralelismo, ya que dividen el problema en subárboles independientes. Existen versiones de Treaps concurrentes que aprovechan esta propiedad para permitir accesos simultáneos con baja contención, algo mucho más difícil de lograr en [[avl tree]] o [[red black tree]] debido a sus reglas de rebalanceo rígidas.
 
 ## 6. Referencias y recursos
 - [Treap (árbol cartesiano)](https://cp-algorithms.com/data_structures/treap.html)

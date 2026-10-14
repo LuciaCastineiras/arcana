@@ -288,5 +288,5 @@ Una lista doblemente enlazada suele ser adecuada cuando el problema menciona:
 
 ## 6. Referencias y recursos
 
-- [[COR2011]] - Capítulo 10, sección 10.2, página 257.
-- [[GOO2005]] - Capítulo 3, sección 3.3, página 170.
+- [[COR2011]] - Chapter 10.2.
+- [[GOO2005]] - Chapter 3.3.

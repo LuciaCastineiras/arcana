@@ -261,10 +261,11 @@ Hay dos caminos de Pikachu a Squirtle: uno por Eevee (2 aristas) y otro por Char
 
 ## 6. Referencias y recursos
 
-- [[COR2011]] - Capítulo 22: "Elementary Graph Algorithms" (representaciones, BFS, DFS, orden topológico); capítulos 23 a 26 para expansión mínima, caminos mínimos y flujo.
-- [[KLE2005]] - Capítulo 3: "Graphs", con foco en cómo modelar un problema como grafo.
-- [[SED2011]] - Capítulo 4: "Graphs", con implementaciones completas.
-- [[LAF2002]] - Capítulos 12 y 13: "Graphs" y "Weighted Graphs".
+- [[COR2011]] - Chapter 22.
+- [[KLE2005]] - Chapter 3.
+- [[SED2011]] - Chapter 4.
+- [[LAF2002]] - Chapter 12.
+- [[LAF2002]] - Chapter 13.
 - [Wikipedia - PageRank](https://es.wikipedia.org/wiki/PageRank) - Qué es y como funciona PageRank.
 
 **Visualizaciones:**

@@ -225,8 +225,8 @@ Cuando varios hilos o procesos producen y consumen simultáneamente, hace falta 
 
 ## 6. Referencias y recursos
 - [Queue Data Structure - Devopedia](https://devopedia.org/queue-data-structure)
-- [[COR2011]] - Chapter 10.1 Stacks and queues
-- [[DRO1995]] - Chapter 3 Stacks and queues
+- [[COR2011]] - Chapter 10.1.
+- [[DRO1995]] - Chapter 3.
 - Geek for Geeks. Queue Data Structure. Recuperado de: [Queue Data Structure - GeeksforGeeks](https://www.geeksforgeeks.org/dsa/queue-data-structure/)
 - Geek for Geeks. Queue in Python. Recuperado de: [Queue in Python - GeeksforGeeks](https://www.geeksforgeeks.org/python/queue-in-python/)
 - [VisuAlgo - Queue](https://visualgo.net/en/queue) _(visualización interactiva de enqueue/dequeue y del buffer circular)_
