@@ -175,7 +175,7 @@ Evaluemos la función con la entrada del archivo de descripción: $S = \text{"11
 
 ## Referencias
 
-- [[COR2011]] - Sección de Backtracking y Búsqueda en Espacios de Estados.
+- [[COR2011]] - Chapter 22.3.
 - *Números de Catalan y sus aplicaciones combinatorias*.
 - Definición y propiedades: [[set#Definición y propiedades]]
 - Operaciones elementales: [[string#2. Operaciones y complejidad]]
