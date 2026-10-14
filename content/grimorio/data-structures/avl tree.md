@@ -247,7 +247,7 @@ Un árbol AVL suele ser adecuado cuando en el problema se menciona:
 - Es una optimización del árbol binario de búsqueda ([[binary-search-tree]]) con un invariante extra y el rebalanceo que lo sostiene.
 - El árbol rojo-negro ([[red black tree]]) resuelve el mismo problema con una regla más laxa mientras que el árbol B ([[b-tree]]) generaliza la idea a nodos que pueden tener más de una clave.
 - Se suele utilizar dentro de tablas hash ([[hash table]]) para evitar degradación en colisiones.
-- Combinado con una lista doblemente enlazada ([[doubly linked list]]), se puede utilizar como base para estructuras ordenadas como la caché LRU ([[cache_lru]]).
+- Combinado con una lista doblemente enlazada ([[doubly linked list]]), se puede utilizar como base para estructuras ordenadas como la caché LRU ([[cache lru]]).
 
 ### Notas avanzadas
 
