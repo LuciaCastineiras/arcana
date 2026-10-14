@@ -41,7 +41,10 @@ Referencia: content/attachments/grimorio/data-structures/stack.svg,
             content/attachments/grimorio/data-structures/b-tree.svg,
             content/attachments/grimorio/data-structures/cache-lru.svg,
             content/attachments/grimorio/data-structures/skip-list.svg,
-            content/attachments/grimorio/data-structures/skip-list-busqueda.svg
+            content/attachments/grimorio/data-structures/skip-list-busqueda.svg,
+            content/attachments/grimorio/data-structures/bloom-filter-insert.svg,
+            content/attachments/grimorio/data-structures/bloom-filter-contain.svg,
+            content/attachments/grimorio/data-structures/circular-buffer.svg
 
 Nombres de archivo: kebab-case.svg siempre (sin espacios, sin camelCase),
 salvo casos ya publicados que no valga la pena romper. Las 13 primeras
