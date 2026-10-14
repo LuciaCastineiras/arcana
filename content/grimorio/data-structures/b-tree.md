@@ -24,7 +24,7 @@ Un B-Tree de grado M $\ge$ 3 cumple:
 ### Representación
 Cada nodo guarda un arreglo de claves ordenadas, un arreglo de punteros a hijos y un flag de si es hoja.
 
-![Diagrama de un B-Tree de grado 4, con raíz de dos claves y tres hojas|254](b-tree.svg)
+![Búsqueda de la clave 75 en un B-Tree de tres niveles](b-tree.svg)
 ## 2. Operaciones y complejidad
 
 ### Operaciones principales
