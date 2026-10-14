@@ -17,7 +17,7 @@ alias:
 
 ### Intuición
 
-El **k-d tree** (árbol k-dimensional) divide un espacio multidimensional en regiones más pequeñas mediante cortes rectos (hiperplanos). Su idea central es permitir descartar áreas enteras del espacio con una sola evaluación matemática durante una búsqueda. 
+El **k-d tree** (árbol k-dimensional) divide un espacio multidimensional en regiones más pequeñas mediante cortes rectos (hiperplanos). Su idea central es permitir descartar áreas enteras del espacio con una sola evaluación matemática durante una búsqueda.
 Es la evolución natural del [[binary-search-tree]]
 
 ### Definición / propiedades
@@ -27,12 +27,12 @@ Es la evolución natural del [[binary-search-tree]]
 
 ### Representación
 
-![](/attachments/grimorio/data-structures/kd-tree.svg)
+![](kd-tree.svg)
 
 Estructura resultante después de realizar las divisiones. Los puntos quedan organizados en distintos niveles (Nivel 0, Nivel 1, Nivel 2) según las particiones realizadas, usando K=2.
 
 ---
-![](/attachments/grimorio/data-structures/kd-tree-plano.svg)
+![](kd-tree-plano.svg)
 Distribución inicial de los puntos en el plano X-Y . Es decir, muestra dónde están ubicados los datos antes de aplicar las divisiones por niveles.
 
 ## 2. Operaciones y complejidad
@@ -56,7 +56,7 @@ Distribución inicial de los puntos en el plano X-Y . Es decir, muestra dónde e
 | remove        | $O(\log n)$       | $O(n)$             | $O(1)$  |
 | clear         | $O(n)$            | $O(n)$             | $O(1)$  |
 
-[^1]: build: La tabla dice que `build` es $O(n \log² n)$ en promedio, esto es porque el código de la sección 3 hace un `sorted()` completo en cada nivel de la recursión en vez de seleccionar la mediana en $O(n)$, por lo tanto el `build` se puede optimizar de manera que sea en tiempo promedio $O(n \log n)$.
+[^1]: build: La tabla dice que `build` es $O(n \log^2 n)$ en promedio, esto es porque el código de la sección 3 hace un `sorted()` completo en cada nivel de la recursión en vez de seleccionar la mediana en $O(n)$, por lo tanto el `build` se puede optimizar de manera que sea en tiempo promedio $O(n \log n)$.
 ### Detalles operativos
 
 - Maldición de la dimensionalidad: Si la cantidad de dimensiones (k) es muy alta (generalmente > 20), el volumen espacial crece tanto que la poda de ramas deja de ser eficiente. El árbol se ve forzado a visitar casi todos los nodos, volviéndose más lento que una búsqueda lineal simple.
@@ -73,9 +73,9 @@ Deberemos crear un árbol binario de búsqueda con dos particularidades:
 
 ### Invariantes
 
-- El eje a comparar se determina mediante el resto de la división entre la profundidad dividida las *k* dimensiones (*depth % k*).    
+- El eje a comparar se determina mediante el resto de la división entre la profundidad dividida las *k* dimensiones (*depth % k*).
 - Todos los nodos del árbol deben almacenar puntos pertenecientes al mismo espacio de *k* dimensiones.
-- La construcción del árbol debe realizarse a partir de una colección de puntos para obtener su mediana y estructurar cada nodo de forma que quede balanceado. 
+- La construcción del árbol debe realizarse a partir de una colección de puntos para obtener su mediana y estructurar cada nodo de forma que quede balanceado.
 
 ### Ejemplo de código
 
@@ -143,7 +143,7 @@ En lugar de calcular la distancia con los miles de puntos, un k-d tree puede des
 ### Cuándo NO usarlo
 
 No es una buena elección cuando:
-- los datos **no tienen una naturaleza espacial o multidimensional.** 
+- los datos **no tienen una naturaleza espacial o multidimensional.**
 - la cantidad de dimensiones es muy elevada, debido a la **maldición de la dimensionalidad**.
 - los datos cambian constantemente.
 
@@ -185,7 +185,7 @@ El **k-d tree** está directamente relacionado con otras estructuras de búsqued
 
 Una de sus relaciones más importantes es con los [[binary-search-tree]]: ambos utilizan una estructura de árbol binario y toman decisiones de recorrido en cada nodo. La diferencia es que un [[binary-search-tree]] normalmente utiliza una única clave para ordenar los elementos, mientras que un **k-d tree** alterna entre diferentes dimensiones.
 
-También está relacionado con los [[R-tree]], utilizados para indexar objetos espaciales mediante regiones, y con los [[range tree]], especializados en consultas de rango multidimensional.
+También está relacionado con los R-tree, utilizados para indexar objetos espaciales mediante regiones, y con los range tree, especializados en consultas de rango multidimensional.
 
 ### Notas avanzadas
 
@@ -199,7 +199,7 @@ Stable Sort. (2020, October 9). [KD-Tree nearest neighbor data structure](https:
 
 Berg, Mark de; Cheong, Otfried; Kreveld, Marc van; Overmars, Mark (2008). "Orthogonal Range Searching". *Computational Geometry. pp. 95–120*
 
-Bentley, J. L. (1975). *Multidimensional Binary Search Trees Used for Associative Searching*. Communications of the ACM, 18(9), 509–517. 
+Bentley, J. L. (1975). *Multidimensional Binary Search Trees Used for Associative Searching*. Communications of the ACM, 18(9), 509–517.
 
 SciPy Community. (n.d.). ["KD Tree Computer software manual"](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.KDTree.html) SciPy v1.18.0 Manual. Retrieved September 16, 2026
 

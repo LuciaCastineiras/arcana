@@ -22,7 +22,7 @@ Un **buffer circular** es una estructura especial que utiliza un [[struct]] para
 
 ### Representación
 
-![[circular-buffer.svg|Representación del buffer circular|450]]
+![Representación del buffer circular|450](circular-buffer.svg)
 
 - `buffer`: array de tamaño fijo que almacena elementos.
 - `length`: cantidad de elementos que el buffer tiene almacenados.

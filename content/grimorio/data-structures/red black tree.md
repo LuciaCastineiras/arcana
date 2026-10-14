@@ -28,7 +28,7 @@ Al ser un árbol rojo-negro un tipo de árbol binario de búsqueda, hereda todas
 ### Representación
 Internamente, está compuesto por nodos que poseen un valor (o clave), un booleano que hace referencia al color que posee, y punteros al hijo izquierdo, hijo derecho y padre del nodo.
 
-![Diagrama de un red-black tree](attachments/grimorio/data-structures/red-black-tree.svg)
+![Diagrama de un red-black tree](red-black-tree.svg)
 
 ---
 ## 2. Operaciones y complejidad
@@ -40,9 +40,9 @@ Internamente, está compuesto por nodos que poseen un valor (o clave), un boolea
 ### Complejidad
 | Operaciones       | Notación Big O |
 | :---------------- | :------------- |
-| `buscar(valor)`   | $O(log n)$     |
-| `insertar(valor)` | $O(log n)$     |
-| `eliminar(valor)` | $O(log n)$     |
+| `buscar(valor)`   | $O(\log n)$     |
+| `insertar(valor)` | $O(\log n)$     |
+| `eliminar(valor)` | $O(\log n)$     |
 | `Espacio`         | $O(n)$         |
 ### Detalles operativos
 - Si la inserción o borrado de un nodo provoca la violación de las propiedades del árbol rojo-negro, se debe realizar una operación de arreglo de la estructura, que involucra un recoloreo y/o una rotación de los nodos cercanos.
@@ -50,7 +50,7 @@ Internamente, está compuesto por nodos que poseen un valor (o clave), un boolea
 - Una implementación clásica utiliza nodos centinela NIL de color negro, a fin de evitar verificaciones especiales de bordes como `if (nodo != NULL)`. Todos los punteros vacíos apuntan a un único objeto `NIL` global, reduciendo líneas de código y condicionales.
 - Una implementación alternativa que utilice NULL ahorra más memoria, pero modifica la estructura del código al tener que realizar más verificaciones.
 - A diferencia de otros árboles de búsqueda binario, los árboles rojo-negro almacenan un puntero al padre en cada nodo.
-- Si las claves almacenadas son strings, y se desea buscar un elemento, la comparación en cada nodo cuesta $O(k)$, por lo que una operación de búsqueda realmente puede costar $O(k log n)$
+- Si las claves almacenadas son strings, y se desea buscar un elemento, la comparación en cada nodo cuesta $O(k)$, por lo que una operación de búsqueda realmente puede costar $O(k \log n)$
 
 ---
 ## 3. Implementación
@@ -234,13 +234,13 @@ Valor: 30 | Color: negro
 - Cuando se priorizan grandes cargas iniciales sobre datos ya ordenados.
 - Cuando los datos son estáticos y solo se leen una vez (conviene usar un array ordenado y búsqueda binaria).
 ### Comparaciones
-- **vs. AVL**: ambos garantizan $O(log n)$ en sus operaciones, pero el AVL es más estricto (la diferencia de altura entre los subárboles izquierdo y derecho de cualquier nodo no puede ser mayor a 1) y realiza la operación de búsqueda un poco más rápido, mientras que el rojo-negro rebalancea menos.
-- **vs. Binary Search Tree (BST)**: si se le insertan datos ya ordenados, el árbol se degenera en una [[linked list]] provocando que las búsquedas pasen de un tiempo promedio $O(log n)$ al peor caso $O(n)$.
+- **vs. AVL**: ambos garantizan $O(\log n)$ en sus operaciones, pero el AVL es más estricto (la diferencia de altura entre los subárboles izquierdo y derecho de cualquier nodo no puede ser mayor a 1) y realiza la operación de búsqueda un poco más rápido, mientras que el rojo-negro rebalancea menos.
+- **vs. Binary Search Tree (BST)**: si se le insertan datos ya ordenados, el árbol se degenera en una [[linked list]] provocando que las búsquedas pasen de un tiempo promedio $O(\log n)$ al peor caso $O(n)$.
 - **vs. B-tree**: es un árbol ancho de múltiples vías diseñado para almacenamiento en disco (SSD/HDD) y bases de datos, al contrario del árbol rojo-negro que está pensado para la memoria RAM.
 - **vs. Skip List**: tiene complejidad esperada equivalente al árbol rojo-negro y código más corto, a cambio de garantías probabilísticas y mayor consumo de memoria por nodo.
 ### Ventajas / desventajas
 #### Ventajas
-- **Garantiza $O(log n)$** para búsqueda, inserción y eliminación sin importar si los datos ingresan ordenados o en desorden. 
+- **Garantiza $O(\log n)$** para búsqueda, inserción y eliminación sin importar si los datos ingresan ordenados o en desorden.
 - **Mantiene todos sus elementos ordenados** internamente en todo momento, siendo su overhead el almacenamiento de un bit extra por nodo.
 - **Requiere como máximo 2 rotaciones en una inserción y 3 en una eliminación**, resultando sustancialmente más rápido en escrituras que un árbol AVL.
 #### Desventajas

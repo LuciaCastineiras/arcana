@@ -40,7 +40,7 @@ una colección de pares **clave→valor** bajo ciertas reglas fundamentales:
 
 ### Representación
 
-![](/attachments/grimorio/data-structures/map.svg)
+![](map.svg)
 
 Un Map es una abstracción lógica, por lo que puede implementarse de diferentes maneras:
 

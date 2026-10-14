@@ -9,14 +9,14 @@ alias:
 
 ### Intuición
 
-Una **Lista por Saltos** (Skip List) es una [[Linked List]] con punteros adicionales que te permiten saltarte algunos elementos y acceder rápidamente a la información.
+Una **Lista por Saltos** (Skip List) es una [[linked list]] con punteros adicionales que te permiten saltarte algunos elementos y acceder rápidamente a la información.
 
 Esta estructura soluciona dos problemas principales, evita recorrer todo de forma secuencial como en una lista común y logra una velocidad de búsqueda parecida a la de un árbol balanceado, pero sin rebalancear la estructura cada vez que insertás/borrás algo.
 ### Definición y propiedades
 
 Es una estructura de datos probabilística y jerárquica. Sus principales reglas e invariantes son:
 
-- **Capa base completa:** El nivel inferior (Nivel 0) es una [[linked list|lista enlazada]] que contiene todos los elementos insertados, ordenados de menor a mayor.
+- **Capa base completa:** El nivel inferior (Nivel 0) es una [[linked list]] que contiene todos los elementos insertados, ordenados de menor a mayor.
 
 - **Balanceo probabilístico:** La estructura no realiza un balanceo estricto. En su lugar, utiliza un generador de números aleatorios para determinar en qué niveles se encuentra cada elemento.
 
@@ -29,11 +29,11 @@ Es una estructura de datos probabilística y jerárquica. Sus principales reglas
 
 Internamente, la estructura parte de un nodo cabecera (header) que no guarda ningún dato, solo un puntero por cada nivel. Cada puntero apunta al primer nodo de su nivel, y los recorridos avanzan desde ahí hasta llegar al nodo NIL, que marca el final de la lista.
 
-![[skipList.svg]]
+![Estructura de una skip list](skip-list.svg)
 
 A continuación, se muestra un ejemplo del recorrido para hacer una búsqueda del valor 9 en una skip list: se parte del encabezado en el nivel más alto y se avanza mientras el siguiente nodo sea menor o igual a 9. Cuando no es así, se baja de nivel, hasta llegar al 9 en el nivel 0.
 
-![[skipListBusqueda.svg]]
+![Búsqueda en una skip list](skip-list-busqueda.svg)
 
 ## 2. Operaciones y complejidad
 
@@ -189,7 +189,7 @@ print(sl.search(9))   # False
 - Acceder o actualizar datos de manera concurrente _(por ejemplo, Redis utiliza esta estructura de datos)._
 - Búsqueda de un rango de valores en un conjunto ordenado.
 - Trabajar con índices en memoria _(Memtables)_ para guardar datos en memoria antes de grabarlos en disco.
-- Cuando preferís el equilibrio probabilístico _(azar)_ en lugar de del reequilibrio determinístico _(en cada operación, se corrige y se verifica para que cumpla con ciertas reglas, como en un [[AVL-Tree]] o [[red black tree|Red-Black-Tree]])_.
+- Cuando preferís el equilibrio probabilístico _(azar)_ en lugar de del reequilibrio determinístico _(en cada operación, se corrige y se verifica para que cumpla con ciertas reglas, como en un [[avl tree]] o un [[red black tree]])_.
 - Si se requiere una estructura fácil de versionar, sin reestructuraciones como las de un árbol.
 
 ### Cuándo NO usarlo
@@ -203,10 +203,10 @@ print(sl.search(9))   # False
 ### Comparaciones
 | Estructura                      | Ventaja frente a Skip List                | Desventaja frente a Skip List                                    |
 | ------------------------------- | ----------------------------------------- | ---------------------------------------------------------------- |
-| [[linked list\|Lista enlazada]] | Menor uso de memoria _(puntero por nodo)_ | La búsqueda es $O(n)$, sin niveles para saltar                   |
-| [[Array]]                       | Menor uso de memoria y acceso por índice  | Inserciones/eliminaciones cuestan $O(n)$                         |
-| [[Árbol balanceado]]            | Garantiza $O(\log n)$ en el peor caso     | Más complejo de implementar y de utilizarlo de forma concurrente |
-| [[hash table\|Tabla de hash]]   | Acceso promedio $O(1)$                    | No mantiene orden ni permite recorridos por rango                |
+| [[linked list]]                 | Menor uso de memoria _(puntero por nodo)_ | La búsqueda es $O(n)$, sin niveles para saltar                   |
+| [[array]]                       | Menor uso de memoria y acceso por índice  | Inserciones/eliminaciones cuestan $O(n)$                         |
+| Árbol balanceado                | Garantiza $O(\log n)$ en el peor caso     | Más complejo de implementar y de utilizarlo de forma concurrente |
+| [[hash table]]                  | Acceso promedio $O(1)$                    | No mantiene orden ni permite recorridos por rango                |
 
 ### Ventajas / desventajas
 
@@ -218,7 +218,7 @@ Las ventajas son:
 
 Por otro lado, las desventajas son las siguientes:
 - En el peor caso de las operaciones podría degradarse a $O(n)$.
-- Mayor uso de memoria por nodo _(el doble que una [[linked list|lista enlazada simple]])_.
+- Mayor uso de memoria por nodo _(el doble que una [[linked list]] simple)_.
 - No es apta para sistemas de tiempo real estrictos.
 - Son unidireccionales, no pueden recorrer hacia atrás.
 
@@ -236,9 +236,9 @@ Por otro lado, las desventajas son las siguientes:
 - Determinística
 
 ### Relación con otras estructuras
-- El nivel 0 funciona como una [[Linked List]], contiene todos los elementos y funciona como una linked list  convencional.
-- Es similar al [[AVL-Tree]]/[[red black tree|Red-Black Tree]], ya que permiten realizar operaciones en $O(\log n)$.
-- Para el uso de índice en memoria, se asimila al rol del [[B-Tree]] en bases de datos relacionales.
+- El nivel 0 funciona como una [[linked list]], contiene todos los elementos y funciona como una linked list  convencional.
+- Es similar al [[avl tree]] o al [[red black tree]], ya que permiten realizar operaciones en $O(\log n)$.
+- Para el uso de índice en memoria, se asimila al rol del [[b-tree]] en bases de datos relacionales.
 
 ### Notas avanzadas
 - **Concurrencia:** Ideal para sistemas multiprocesador. Permite múltiples lecturas y escrituras simultáneas con muy baja contención de bloqueos, siendo mucho más simple de adaptar que los árboles balanceados.

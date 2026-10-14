@@ -9,15 +9,15 @@ alias: ['Splay Tree', 'Árbol biselado']
 
 ### Intuición
 
-Un **Splay Tree** es un árbol binario de búsqueda (BST, por sus siglas en inglés: [[grimorio/data-structures/binary-search-tree|Binary Search Tree]]) autoajustable. Cada vez que se accede a un nodo, por ejemplo mediante una búsqueda, inserción o eliminación, ese nodo se mueve hacia la raíz mediante una secuencia de rotaciones denominada **splaying**.
+Un **Splay Tree** es un árbol binario de búsqueda ([[binary-search-tree]]) autoajustable. Cada vez que se accede a un nodo, por ejemplo mediante una búsqueda, inserción o eliminación, ese nodo se mueve hacia la raíz mediante una secuencia de rotaciones denominada **splaying**.
 
-La idea es simple: si un elemento se utiliza con frecuencia, conviene acercarlo a la raíz para que los próximos accesos sean más rápidos. A diferencia de un [[grimorio/data-structures/avl-tree|AVL]], el Splay Tree no intenta mantener permanentemente una forma equilibrada, sino que se adapta al patrón de accesos.
+La idea es simple: si un elemento se utiliza con frecuencia, conviene acercarlo a la raíz para que los próximos accesos sean más rápidos. A diferencia de un [[avl tree]], el Splay Tree no intenta mantener permanentemente una forma equilibrada, sino que se adapta al patrón de accesos.
 
 Por ejemplo, si se consulta repetidamente el elemento 40, después de su primera búsqueda quedará en la raíz. Los accesos posteriores a ese elemento serán muy económicos.
 
 ### Definición / propiedades
 
-Un Splay Tree mantiene las propiedades fundamentales de un [[grimorio/data-structures/binary-search-tree|BST]]:
+Un Splay Tree mantiene las propiedades fundamentales de un [[binary-search-tree]]:
 
 - Cada nodo posee como máximo un hijo izquierdo y uno derecho.
 - Todos los valores del subárbol izquierdo de un nodo son menores que él.
@@ -29,21 +29,19 @@ Luego de un acceso, se realiza el splay correspondiente. Este utiliza tres situa
 - Zig-Zig: El nodo y su padre están ambos del mismo lado.
 - Zig-Zag: El nodo y su padre están en direcciones opuestas.
 
-Las rotaciones modifican la forma del árbol, pero conservan el orden del [[grimorio/data-structures/binary-search-tree|BST]].
+Las rotaciones modifican la forma del árbol, pero conservan el orden del [[binary-search-tree]].
 
 ### Representación
 
 Cada nodo puede representarse de forma sencilla:
 
-<div style="display: flex; justify-content: center">
-  <img src="/attachments/grimorio/data-structures/splay-tree-nodos.svg">
-</div>
+![Estructura de un nodo de splay tree](splay-tree-nodos.svg)
 
-A diferencia de árboles auto-balanceados como [[grimorio/data-structures/avl-tree|AVL]] o [[grimorio/data-structures/red-black-tree|Red-Black]], el nodo no necesita almacenar un factor de balance ni un color adicional.
+A diferencia de árboles auto-balanceados como [[avl tree]] o [[red black tree]], el nodo no necesita almacenar un factor de balance ni un color adicional.
 
 Una representación conceptual de un acceso podría ser:
 
-![](/attachments/grimorio/data-structures/splay-tree-acceso.svg)
+![](splay-tree-acceso.svg)
 
 ## 2. Operaciones y complejidad
 
@@ -60,18 +58,18 @@ Las operaciones fundamentales son:
 
 | Operación | Peor caso | Complejidad amortizada |
 | --------- | --------- | ---------------------- |
-| find      | $O(n)$    | $O(log\space n)$       |
-| insert    | $O(n)$    | $O(log\space n)$       |
-| delete    | $O(n)$    | $O(log\space n)$       |
-| splay     | $O(n)$    | $O(log\space n)$       |
+| find      | $O(n)$    | $O(\log n)$       |
+| insert    | $O(n)$    | $O(\log n)$       |
+| delete    | $O(n)$    | $O(\log n)$       |
+| splay     | $O(n)$    | $O(\log n)$       |
 
 La diferencia más importante está entre peor caso individual y costo amortizado.
 
 ### Detalles operativos
 
-Una operación aislada puede recorrer un árbol prácticamente lineal y costar $O(n)$. Sin embargo, Sleator y Tarjan demostraron que para una secuencia de operaciones sobre un árbol de n nodos, las operaciones estándar tienen un costo amortizado de $O(log\space n)$ por operación.
+Una operación aislada puede recorrer un árbol prácticamente lineal y costar $O(n)$. Sin embargo, Sleator y Tarjan demostraron que para una secuencia de operaciones sobre un árbol de n nodos, las operaciones estándar tienen un costo amortizado de $O(\log n)$ por operación.
 
-Esto significa que no debemos interpretar $O(log\space n)$ como una garantía de que cada búsqueda demora $O(log\space n)$. Es una garantía sobre el comportamiento acumulado de una secuencia de operaciones.
+Esto significa que no debemos interpretar $O(\log n)$ como una garantía de que cada búsqueda demora $O(\log n)$. Es una garantía sobre el comportamiento acumulado de una secuencia de operaciones.
 
 El espacio requerido es $O(n)$ porque se almacena un nodo por elemento. Además, no es necesario guardar información adicional de balance en cada nodo.
 
@@ -83,7 +81,7 @@ Una implementación puede basarse en dos operaciones de rotación: rotación a l
 
 ### Invariantes
 
-- El árbol debe continuar siendo un [[grimorio/data-structures/binary-search-tree|BST]] después de cada operación.
+- El árbol debe continuar siendo un [[binary-search-tree]] después de cada operación.
 - El elemento accedido termine en la raíz.
 
 ### Ejemplo de código
@@ -150,15 +148,15 @@ Vistas gráficamente (en todos los casos se hace `splay(x)`):
 
 Zig:
 
-![](/attachments/grimorio/data-structures/splay-tree-zig.svg)
+![](splay-tree-zig.svg)
 
 Zig-Zig:
 
-![](/attachments/grimorio/data-structures/splay-tree-zig-zig.svg)
+![](splay-tree-zig-zig.svg)
 
 Zig-Zag:
 
-![](/attachments/grimorio/data-structures/splay-tree-zig-zag.svg)
+![](splay-tree-zig-zag.svg)
 
 ### Ejemplo de uso
 
@@ -179,11 +177,11 @@ print(sp.root.key) # 10
 
 Para inserción, se inserta el elemento y luego se le realiza splay hacía la raíz. Ejemplo insertando 20:
 
-![](/attachments/grimorio/data-structures/splay-tree-insert.svg)
+![](splay-tree-insert.svg)
 
 Para búsqueda, se busca el elemento y al encontrarlo se le realiza splay. Ejemplo buscando 10:
 
-![](/attachments/grimorio/data-structures/splay-tree-find.svg)
+![](splay-tree-find.svg)
 
 
 ## 4. Uso y criterio
@@ -203,7 +201,7 @@ Algunos ejemplos donde se usa, son:
 
 No es recomendable cuando:
 
-- Se necesita una garantía estricta de $O(log\space n)$ en el peor caso de cada operación.
+- Se necesita una garantía estricta de $O(\log n)$ en el peor caso de cada operación.
 - Una búsqueda no debería modificar la estructura.
 - Se necesita una estructura sencilla para múltiples accesos concurrentes.
 
@@ -211,16 +209,16 @@ Por ejemplo, en un sistema de tiempo real puede ser más conveniente utilizar un
 
 ### Comparaciones
 
-- [[grimorio/data-structures/binary-search-tree|Binary Search Tree]]: Es más simple, pero puede degenerarse y alcanzar $O(n)$.
-- [[grimorio/data-structures/avl-tree|AVL Tree]]: Mantiene un balance más estricto y garantiza $O(log\space n)$ en el peor caso. Es preferible cuando importa la predictibilidad de cada operación.
-- [[grimorio/data-structures/red-black-tree|Red-Black Tree]]: También garantiza $O(log\space n)$ en el peor caso y mantiene un balance menos estricto que AVL.
-- Splay Tree: No garantiza $O(log\space n)$ por operación, pero obtiene $O(log\space n)$ amortizado y se adapta automáticamente al patrón de accesos.
+- [[binary-search-tree]]: Es más simple, pero puede degenerarse y alcanzar $O(n)$.
+- [[avl tree]]: Mantiene un balance más estricto y garantiza $O(\log n)$ en el peor caso. Es preferible cuando importa la predictibilidad de cada operación.
+- [[red black tree]]: También garantiza $O(\log n)$ en el peor caso y mantiene un balance menos estricto que AVL.
+- Splay Tree: No garantiza $O(\log n)$ por operación, pero obtiene $O(\log n)$ amortizado y se adapta automáticamente al patrón de accesos.
 
 ### Ventajas / desventajas
 
 Ventajas:
 
-- $O(log\space n)$ amortizado para las operaciones principales.
+- $O(\log n)$ amortizado para las operaciones principales.
 - No necesita almacenar información de balance.
 - Se adapta a los patrones de acceso.
 - Los elementos usados recientemente quedan cerca de la raíz.
@@ -229,8 +227,8 @@ Desventajas:
 
 - Una operación individual puede costar $O(n)$.
 - Las búsquedas modifican el árbol.
-- No garantiza una altura $O(log\space n)$.
-- Su rendimiento por operación es menos predecible que [[grimorio/data-structures/avl-tree|AVL]] o [[grimorio/data-structures/red-black-tree|Red-Black]] Tree.
+- No garantiza una altura $O(\log n)$.
+- Su rendimiento por operación es menos predecible que [[avl tree]] o [[red black tree]].
 
 ### Señales de reconocimiento
 
@@ -252,7 +250,7 @@ La variante top-down puede simplificar ciertos aspectos de implementación al ev
 
 ### Relación con otras estructuras
 
-El Splay Tree deriva directamente del [[grimorio/data-structures/binary-search-tree|Binary Search Tree]], ya que mantiene su propiedad de orden. A diferencia de [[grimorio/data-structures/avl-tree|AVL]] y [[grimorio/data-structures/red-black-tree|Red-Black]], que buscan mantener una determinada forma estructural, el Splay Tree se reorganiza según la secuencia real de accesos.
+El Splay Tree deriva directamente del [[binary-search-tree]], ya que mantiene su propiedad de orden. A diferencia de [[avl tree]] y [[red black tree]], que buscan mantener una determinada forma estructural, el Splay Tree se reorganiza según la secuencia real de accesos.
 
 Por otro lado, la técnica de splaying también aparece en estructuras más avanzadas como los Link-Cut Trees, utilizados para representar árboles dinámicos.
 

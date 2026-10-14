@@ -80,7 +80,7 @@ El array circular evita desplazamientos en los extremos con aritmética modular:
 
 ### Idea de implementación
 
-Se mantiene un bloque contiguo en _heap_ con dos variables: `size` (elementos almacenados) y `capacidad` (tamaño máximo reservado). Cuando `size == capacidad`, se aplica redimensionamiento geométrico: la capacidad se multiplica por un factor fijo (típicamente ×2).
+Se mantiene un bloque contiguo en _heap_ con dos variables: `size` (elementos almacenados) y `capacidad` (tamaño máximo reservado). Cuando `size == capacidad`, se aplica redimensionamiento geométrico: la capacidad se multiplica por un factor fijo (típicamente $2$).
 
 ### Invariantes
 
@@ -189,7 +189,7 @@ for i in range(arr.size):
 
 ### Variantes
 
-- Factor de crecimiento variable (×1.5 o ×2): balancea uso de memoria vs. frecuencia de copias; con ×2 el total de copias no supera 2n para n inserciones.
+- Factor de crecimiento variable ($1.5$ o $2$): balancea uso de memoria vs. frecuencia de copias; con factor $2$ el total de copias no supera $2n$ para $n$ inserciones.
 - _Shrinking_: reduce capacidad al bajar del 25% de ocupación para evitar fragmentación externa.
 - Buffer circular sobre array dinámico: base de implementaciones eficientes de [[deque]].
 

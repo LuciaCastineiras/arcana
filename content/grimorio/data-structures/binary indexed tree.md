@@ -78,7 +78,7 @@ Ejemplo:
                        [5──6]
 ```
 #### Árbol Binario Resultante
-![Fenwick Tree](/attachments/grimorio/data-structures/binary-indexed-tree.svg)
+![Fenwick Tree](binary-indexed-tree.svg)
 Cada posición cubre un intervalo de distinto tamaño según `Lowbit(i)`, lo que permite reconstruir cualquier suma prefija combinando bloques que no se solapan.
 
 
@@ -98,7 +98,7 @@ Cada posición cubre un intervalo de distinto tamaño según `Lowbit(i)`, lo que
 | `add` / `prefixSum` / `rangeSum` / `get` | $O(\log n)$ | $O(1)$ |
 | Construcción con `add` | $O(n \log n)$ | $O(n)$ |
 | Construcción optimizada | $O(n)$ | $O(n)$ |
-| Estructura | — | $O(n)$ |
+| Estructura | N/A | $O(n)$ |
 
 `add` y `prefixSum` son $O(\log n)$ porque en cada paso el índice cambia según `Lowbit(i)`, recorriendo tantas posiciones como bits tiene `i`. `rangeSum` hace dos `prefixSum`, por lo que sigue siendo $O(\log n)$.
 
@@ -210,7 +210,7 @@ La idea sirve para cualquier operación que combine correctamente sus valores, p
 ## 6. Referencias y recursos
 
 - Peter M. Fenwick. *"A New Data Structure for Cumulative Frequency Tables"*. Software: Practice and Experience, 1994. Trabajo original.
-- [CP-Algorithms — Fenwick Tree](https://cp-algorithms.com/data_structures/fenwick.html). Operaciones y variantes.
-- [VisuAlgo — Fenwick Tree](https://visualgo.net/en/fenwicktree). Visualización interactiva.
+- [CP-Algorithms - Fenwick Tree](https://cp-algorithms.com/data_structures/fenwick.html). Operaciones y variantes.
+- [VisuAlgo - Fenwick Tree](https://visualgo.net/en/fenwicktree). Visualización interactiva.
 - Cormen, Leiserson, Rivest, Stein. *Introduction to Algorithms*. MIT Press.
 - Mark Allen Weiss. *Data Structures and Algorithm Analysis*. Pearson.

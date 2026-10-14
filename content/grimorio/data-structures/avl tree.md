@@ -10,15 +10,15 @@ alias:
 ## 1. Qué es y cómo funciona
 
 ### Intuición
-El **Árbol AVL** es un [[binary search tree|Árbol de Búsqueda Binaria]] (BST) que se balancea automáticamente al insertar o eliminar nodos. Así la altura se mantiene acotada, y la búsqueda, la inserción y la eliminación se resuelven de manera eficiente.
+El **Árbol AVL** es un árbol de búsqueda binaria ([[binary-search-tree]]) que se balancea automáticamente al insertar o eliminar nodos. Así la altura se mantiene acotada, y la búsqueda, la inserción y la eliminación se resuelven de manera eficiente.
 
-![Las claves 10 a 50 insertadas en orden en un BST común y en un AVL|674](/attachments/grimorio/data-structures/avl-vs-bst.svg)
+![Las claves 10 a 50 insertadas en orden en un BST común y en un AVL|674](avl-vs-bst.svg)
 
 *Figura 1. Poniendo las claves 10 a 50 en orden, el BST degenera en una cadena de altura 4; el AVL rota y queda en altura 2.*
 
 ### Definición / propiedades
 
-- Al igual que en un [[binary search tree|BST]], los nodos menores al padre van a la izquierda y los mayores a la derecha.
+- Al igual que en un [[binary-search-tree]], los nodos menores al padre van a la izquierda y los mayores a la derecha.
 - **Factor de Balance** (*Balance Factor*) de un nodo $v$: la diferencia entre la altura del subárbol izquierdo y la del derecho.
 
 $$FB(v) = \text{altura}(\text{v.izq}) - \text{altura}(\text{v.der})$$
@@ -33,7 +33,7 @@ La cota sale de una recurrencia similar a la sucesión de Fibonacci, $N(h) = 1 +
 
 Cada nodo almacena la **clave**, la **altura** de su subárbol y un **puntero a cada hijo**.
 
-![Estructura interna de un AVL de seis claves](/attachments/grimorio/data-structures/avl-representacion.svg)
+![Estructura interna de un AVL de seis claves](avl-representacion.svg)
 
 *Figura 2. El árbol es un puntero a la raíz; a la derecha, el nodo 40 por dentro.*
 
@@ -70,7 +70,7 @@ Cuando una operación deja un nodo en $FB = \pm 2$, se realizan rotaciones para 
 - **LR** (el nodo a la izquierda, el hijo a la derecha): rotación izquierda sobre el hijo y después derecha sobre el nodo.
 - **RL**: (el nodo a la derecha, el hijo a la izquierda): rotación derecha sobre el hijo y después izquierda sobre el nodo.
 
-![Rotación derecha sobre un nodo desbalanceado (caso LL)|665](/attachments/grimorio/data-structures/avl-rotacion.svg)
+![Rotación derecha sobre un nodo desbalanceado (caso LL)|665](avl-rotacion.svg)
 
 *Figura 3. Caso LL: la Z queda en $FB = +2$ y su hijo Y en $+1$; la rotación derecha sube el Y y baja la Z, que recibe el subárbol del T3.*
 
@@ -190,7 +190,7 @@ avl.preorden(raiz)
 30 (h=3) 20 (h=2) 10 (h=1) 25 (h=1) 40 (h=2) 50 (h=1)
 ```
 
-![Las seis claves insertadas en orden en un AVL|667](/attachments/grimorio/data-structures/avl-traza.svg)
+![Las seis claves insertadas en orden en un AVL|667](avl-traza.svg)
 
 *Figura 4. El árbol final es el que imprime el preorden de arriba con su estado tras las rotaciones.*
 
@@ -200,7 +200,7 @@ Conviene usar un AVL cuando se quiere **optimizar los tiempos de búsqueda** sob
 
 ### Casos de uso
 
-- [[set|Conjuntos]] y [[map|diccionarios]] ordenados en memoria, con muchas búsquedas y pocas escrituras.
+- Conjuntos ([[set]]) y diccionarios ([[map]]) ordenados en memoria, con muchas búsquedas y pocas escrituras.
 - Cuando además de la clave se necesita el orden: intervalos, sucesor o recorrido ordenado.
 - Enrutadores de red con tablas de lookup en memoria.
 
@@ -214,15 +214,15 @@ Conviene usar un AVL cuando se quiere **optimizar los tiempos de búsqueda** sob
 
 | Estructura                               | Caso ideal                                                | Ventajas respecto a AVL                               | Desventajas respecto a AVL                             |
 | :--------------------------------------- | :-------------------------------------------------------- | :---------------------------------------------------- | :----------------------------------------------------- |
-| **[[red-black tree\|Árbol Rojo-Negro]]** | [[map\|Mapas]] o [[set\|conjuntos]] con muchas escrituras | Menos rotaciones al insertar y borrar                 | Búsqueda más lenta ya que su altura está menos acotada |
-| **[[b-tree\|Árbol B]]**                  | Bases de datos y archivos en disco                        | Menos accesos a disco al tener varias claves por nodo | Más complejo cuando hay pocos elementos                |
-| **[[hash table\|Tabla Hash]]**           | Búsqueda por clave exacta sin orden                       | Búsqueda en $O(1)$ promedio                           | Sin recorridos ordenados ni búsquedas por intervalos   |
+| **Árbol Rojo-Negro ([[red black tree]])** | Mapas ([[map]]) o conjuntos ([[set]]) con muchas escrituras | Menos rotaciones al insertar y borrar                 | Búsqueda más lenta ya que su altura está menos acotada |
+| **Árbol B ([[b-tree]])**                  | Bases de datos y archivos en disco                        | Menos accesos a disco al tener varias claves por nodo | Más complejo cuando hay pocos elementos                |
+| **Tabla Hash ([[hash table]])**           | Búsqueda por clave exacta sin orden                       | Búsqueda en $O(1)$ promedio                           | Sin recorridos ordenados ni búsquedas por intervalos   |
 
 ### Ventajas / desventajas
 
 | Ventajas                                                     | Desventajas                                                                                           |
 | :----------------------------------------------------------- | :---------------------------------------------------------------------------------------------------- |
-| $O(\log n)$ garantizado aun en el peor caso.                 | Más difícil de implementar que un [[binary search tree\|BST estándar]], sobre todo en la eliminación. |
+| $O(\log n)$ garantizado aun en el peor caso.                 | Más difícil de implementar que un [[binary-search-tree]] estándar, sobre todo en la eliminación. |
 | Altura balanceada que permite menos comparaciones al buscar. | Overhead en cada escritura por el balanceo.                                                           |
 |                                                              | Gasto adicional de memoria para almacenar la altura en cada nodo.                                     |
 
@@ -244,10 +244,10 @@ Un árbol AVL suele ser adecuado cuando en el problema se menciona:
 - **Puntero al padre:** un puntero al padre en cada nodo simplifica los recorridos ascendentes y los algoritmos iterativos.
 
 ### Relación con otras estructuras
-- Es una optimización del [[binary search tree|Árbol Binario de Búsqueda]] con un invariante extra y el rebalanceo que lo sostiene.
-- El [[red-black tree|Árbol Rojo-Negro]] resuelve el mismo problema con una regla más laxa mientras que el [[b-tree|Árbol B]] generaliza la idea a nodos que pueden tener más de una clave.
-- Se suele utilizar dentro de [[hash table|tablas hash]] para evitar degradación en colisiones.
-- Combinado con una [[doubly linked list|lista doblemente enlazada]], se puede utilizar como base para estructuras como [[lru cache|caché LRU]] ordenadas.
+- Es una optimización del árbol binario de búsqueda ([[binary-search-tree]]) con un invariante extra y el rebalanceo que lo sostiene.
+- El árbol rojo-negro ([[red black tree]]) resuelve el mismo problema con una regla más laxa mientras que el árbol B ([[b-tree]]) generaliza la idea a nodos que pueden tener más de una clave.
+- Se suele utilizar dentro de tablas hash ([[hash table]]) para evitar degradación en colisiones.
+- Combinado con una lista doblemente enlazada ([[doubly linked list]]), se puede utilizar como base para estructuras ordenadas como la caché LRU ([[cache_lru]]).
 
 ### Notas avanzadas
 

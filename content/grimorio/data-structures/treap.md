@@ -26,7 +26,7 @@ Un **Treap** es un árbol binario donde cada nodo guarda una **clave**, un valor
 
 Cada nodo contiene una clave, una prioridad y dos referencias: hijo izquierdo e hijo derecho. La raíz tiene la prioridad más alta; hacia abajo, las prioridades disminuyen. Al mismo tiempo, las claves menores quedan a la izquierda y las mayores, a la derecha.
 
-![Representación de un Treap](/attachments/grimorio/data-structures/treap.svg)
+![Representación de un Treap](treap.svg)
 
 ## 2. Operaciones y complejidad
 

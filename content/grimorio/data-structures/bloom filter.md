@@ -12,11 +12,11 @@ alias:
 
 ### Intuición
 
-Un **Bloom Filter** sirve para saber rápidamente si un elemento está dentro de un conjunto. Puede equivocarse y decir que un elemento está cuando en realidad no está (falso positivo). Pero nunca pasa al revés: si dice que un elemento no está, podemos estar seguros de que realmente no fue agregado. 
+Un **Bloom Filter** sirve para saber rápidamente si un elemento está dentro de un conjunto. Puede equivocarse y decir que un elemento está cuando en realidad no está (falso positivo). Pero nunca pasa al revés: si dice que un elemento no está, podemos estar seguros de que realmente no fue agregado.
 
 ### Definición / propiedades
 
-Los filtros de Bloom son una estructura de datos probabilística que permite verificar la pertenencia de un elemento a un conjunto de forma eficiente en memoria. No almacena los elementos en sí, sino una representación compacta mediante un [[array|array]] de bits, por lo que puede dar falsos positivos, pero nunca falsos negativos.
+Los filtros de Bloom son una estructura de datos probabilística que permite verificar la pertenencia de un elemento a un conjunto de forma eficiente en memoria. No almacena los elementos en sí, sino una representación compacta mediante un [[array]] de bits, por lo que puede dar falsos positivos, pero nunca falsos negativos.
 
 Sus principales propiedades son:
 
@@ -30,13 +30,13 @@ Sus principales propiedades son:
 
 Primero debemos inicializar el array para que tenga 0 en todas sus posiciones, luego insertamos un elemento:
 
-![[attachments/grimorio/data-structures/bloom_filter_insert.svg|Bloom filter - Insertar elemento|450]]
+![Bloom filter - Insertar elemento|450](bloom-filter-insert.svg)
 
-Consultar elemento 
+Consultar elemento
 
-![[attachments/grimorio/data-structures/bloom_filter_contain.svg|Bloom filter - Consultar elemento|450]]
+![Bloom filter - Consultar elemento|450](bloom-filter-contain.svg)
 
-> Si todos los bits que apunta están en 1 podemos decir que posiblemente está en el conjunto, pero si algún bit está en 0 nos asegura que no está. 
+> Si todos los bits que apunta están en 1 podemos decir que posiblemente está en el conjunto, pero si algún bit está en 0 nos asegura que no está.
 
 
 ## 2. Operaciones y complejidad
@@ -48,7 +48,7 @@ Consultar elemento
 |---|---|
 | `BloomFilter(capacity, error_rate)` | Constructor: crea el filtro con la capacidad esperada y la tasa de error deseada |
 | `.add(item)` | Inserta un elemento. Devuelve `True` si ya estaba (posible falso positivo) o `False` si es nuevo |
-| `item in filtro` | Consulta pertenencia usando el operador `in` (no hay un método `.check()` separado — Python lo resuelve mediante `__contains__`) |
+| `item in filtro` | Consulta pertenencia usando el operador `in` (no hay un método `.check()` separado: Python lo resuelve mediante `__contains__`) |
 | `len(filtro)` | Devuelve la cantidad aproximada de elementos insertados |
 | `.capacity` | Atributo: capacidad máxima configurada |
 | `.error_rate` | Atributo: tasa de falso positivo configurada |
@@ -70,10 +70,10 @@ Para esta estructura de datos, las operaciones no dependen de c (cantidad de ele
 | Inserción | $O(k)$ | $O(k)$ | $O(k)$ |
 | Búsqueda | $O(k)$ | $O(k)$ | $O(k)$ |
 
-Donde: 
-- n = tamaño del arreglo de bits 
-- k = cantidad de funciones hash 
-- c = cantidad de elementos insertados 
+Donde:
+- n = tamaño del arreglo de bits
+- k = cantidad de funciones hash
+- c = cantidad de elementos insertados
 
 ### Detalles operativos
 
@@ -91,27 +91,27 @@ Donde:
 
 ### Idea de implementación
 
-- [[array|Array]] de bits de tamaño N, inicializado en 0
+- [[array]] de bits de tamaño N, inicializado en 0
 - K funciones hash independientes
 - Tasa de falso positivo aceptada, normalmente 1%
 
 ### Algoritmos clave
 
 - BloomFilter(capacity, error_rate):  
-  - Constructor del array de bits 
-  - Primer parametro es el tamaño N de nuestro array 
-  - Segundo parametro la probabilidad maxima aceptada de un falso positivo. 
+  - Constructor del array de bits
+  - Primer parametro es el tamaño N de nuestro array
+  - Segundo parametro la probabilidad maxima aceptada de un falso positivo.
 
-- add(x) 
-  - Se calculas las K posiciones y pone en 1 en las posiciones 
+- add(x)
+  - Se calculas las K posiciones y pone en 1 en las posiciones
 
-- x in filtro 
+- x in filtro
   - Verifica si este contenido dentro del bloomfilter usando el operador in
 
 ### Invariantes
 
 - Cero falsos negativos, si un elemento “x” fue insertado algún momento, debe devolver siempre “puede estar presente”.
-- El array de bits no se redimensiona, el tamaño N se fija en el constructor y no cambia durante la vida útil del filtro. 
+- El array de bits no se redimensiona, el tamaño N se fija en el constructor y no cambia durante la vida útil del filtro.
 - Las k funciones hash son independientes y uniformes.
 - No se reutiliza la misma funciones hash dentro del filtro.
 
@@ -161,14 +161,14 @@ print("pera" in bf)     # False
 - **Filtra spam y contenido dañino**: Detecta posibles URLs, correos y números de teléfono asociados a spam o contenido dañino.
 
 ### Cuándo NO usarlo
-- Cuando se espera un resultado acertado sobre la existencia del elemento. 
-- Si se requiere eliminar elementos, ya que el Bloom Filter en su versión estándar no admite esta acción. 
-- Cuando el espacio disponible no es una limitación crítica 
+- Cuando se espera un resultado acertado sobre la existencia del elemento.
+- Si se requiere eliminar elementos, ya que el Bloom Filter en su versión estándar no admite esta acción.
+- Cuando el espacio disponible no es una limitación crítica
 
 ### Comparaciones
 
-- vs **[[hash table|Hash Table]]**: permite almacenar y recuperar elementos de manera eficiente, pero usa más memoria.
-- vs **[[array|Array]] ordenado + búsqueda binaria**: Requiere tener todos los datos y ordenarlos, esto puede resultar muy costoso.
+- vs **[[hash table]]**: permite almacenar y recuperar elementos de manera eficiente, pero usa más memoria.
+- vs **[[array]] ordenado + búsqueda binaria**: Requiere tener todos los datos y ordenarlos, esto puede resultar muy costoso.
 - vs **Cuckoo FIlter**: Similar BloomFilter clásico, pero soporta borrado y suele tener mejor tasa de falsos positivos.
 
 ### Ventajas / desventajas
@@ -182,7 +182,7 @@ print("pera" in bf)     # False
 
 ### Señales de reconocimiento
 
-Hay varias pistas en un problema que sugieren que un Bloom Filter puede ser la estructura adecuada: 
+Hay varias pistas en un problema que sugieren que un Bloom Filter puede ser la estructura adecuada:
 - “Se realizan muchas consultas de existencia sobre un conjunto grande”
 - “Queremos saber si mi elemento que busco se encuentra o no “
 - “Si hay falsos positivos, no es costoso verificar si realmente esta”
@@ -192,14 +192,14 @@ Hay varias pistas en un problema que sugieren que un Bloom Filter puede ser la e
 
 ### Variantes
 
-- **Filtro bloom con conteo**: Utiliza pequeños contadores en vez de bits individuales permitiendo la eliminación de elementos al costo de más memoria. 
-- **Filtro bloom escalable**: Compuesto por varios Filtros de Bloom internos. Se crea un subfiltro cuando el filtro actual se llena o alcanza una tasa de falsos positivos alta. 
-- **Filtro de Cuco**: Almacena huellas digitales cortas en vez de bits individuales, utilizada para cuando la eliminación es frecuente. 
+- **Filtro bloom con conteo**: Utiliza pequeños contadores en vez de bits individuales permitiendo la eliminación de elementos al costo de más memoria.
+- **Filtro bloom escalable**: Compuesto por varios Filtros de Bloom internos. Se crea un subfiltro cuando el filtro actual se llena o alcanza una tasa de falsos positivos alta.
+- **Filtro de Cuco**: Almacena huellas digitales cortas en vez de bits individuales, utilizada para cuando la eliminación es frecuente.
 
 ### Relación con otras estructuras
 
-- **Funciones hash**: igual que en las [[hash table|tablas hash]], pero en el Bloom Filter solo se usan para marcar posiciones como activas, sin guardar el elemento.  
-- **Arreglo de bits (bitset)**: es una secuencia de bits en memoria basada en un [[array]] que permite almacenar el filtro de forma muy compacta. 
+- **Funciones hash**: igual que en una [[hash table]], pero en el Bloom Filter solo se usan para marcar posiciones como activas, sin guardar el elemento.  
+- **Arreglo de bits (bitset)**: es una secuencia de bits en memoria basada en un [[array]] que permite almacenar el filtro de forma muy compacta.
 
 ### Notas avanzadas
 
@@ -212,7 +212,7 @@ Se deben guardar el arreglo de bits y su configuración para poder recuperar el 
 
 Deben distribuir bien los elementos para reducir colisiones y falsos positivos.
 
- 
+
 #### **Concurrencia**
 
 Las actualizaciones de bits deben ser seguras cuando varios hilos o procesos insertan elementos al mismo tiempo.

@@ -14,35 +14,35 @@ La idea central es mantener en memoria rápida los datos más demandados, asumie
 
 ### Definición / propiedades
 #### Definición
-Un Caché LRU es una estructura de datos de tamaño fijo que mantiene un registro del orden temporal en que sus elementos fueron accedidos. 
+Un Caché LRU es una estructura de datos de tamaño fijo que mantiene un registro del orden temporal en que sus elementos fueron accedidos.
 
 #### Propiedades clave:
-- **Límite de capacidad:** 
+- **Límite de capacidad:**
   Nunca excede el tamaño máximo predefinido.
 
 - **Política de desalojo:**
   Al alcanzar su capacidad máxima y recibir un nuevo elemento, expulsa estrictamente aquel que lleva más tiempo sin ser accedido.
 
-- **Complejidad estricta:** 
+- **Complejidad estricta:**
   `get` y `put` pueden implementarse en $O(1)$ en promedio utilizando una hash table y una lista doblemente enlazada.
 
 ### Representación
 
-![[cache_lru.svg]]
+![Caché LRU: hash table más lista doblemente enlazada](cache-lru.svg)
 
 Para lograr accesos y actualizaciones inmediatas, la caché LRU orquesta dos estructuras trabajando en conjunto:
 
 1. **Un Diccionario [[hash table]]**
    Asocia cada clave con el nodo correspondiente de la lista, permitiendo localizarlo directamente sin recorrer la lista.
 
-2. **Una Lista Doblemente Enlazada [[doubly linked list]]** 
+2. **Una Lista Doblemente Enlazada [[doubly linked list]]**
    Mantiene el orden de prioridad temporal. El "Frente" (Head) guarda el dato usado más recientemente, y el "Final" (Tail) guarda el candidato a ser borrado. Al ser doblemente enlazada, permite arrancar un nodo del medio y moverlo al frente en $O(1)$ sin tener que recorrer toda la estructura.
 
 ## 2. Operaciones y complejidad
 ### Operaciones principales
 
 - **`get(clave)`** → Busca un dato. Si la clave existe en el diccionario (_Cache Hit_), la función retorna el valor y mueve el nodo al frente (marcándolo como el más reciente). Si no existe (_Cache Miss_), retorna vacío.
-- **`put(clave, valor)`** → Inserta o actualiza un dato. 
+- **`put(clave, valor)`** → Inserta o actualiza un dato.
 	- Si la clave ya existe, actualiza su valor y mueve el nodo al frente de la lista.
 	- Si es un dato nuevo, crea el nodo y lo inserta en el frente.
 - **Desalojo:** → Si la caché ya alcanzó su capacidad máxima y se inserta una nueva clave, elimina el último nodo de la lista (el menos recientemente utilizado) y borra su clave del diccionario.
@@ -57,7 +57,7 @@ Para lograr accesos y actualizaciones inmediatas, la caché LRU orquesta dos est
 | Mover nodo en la lista    | $O(1)$   | $O(1)$                     |
 | Eliminar nodo de la lista | $O(1)$   | $O(1)$                     |
 
-**Nota**: 
+**Nota**:
 
 El peor caso $O(n)$ corresponde a la implementación interna de la hash table cuando ocurren muchas colisiones.
 El costo de recuperar un dato desde la memoria principal, disco o red tras un cache miss no forma parte de la complejidad de la estructura LRU, sino del sistema que la utiliza.
