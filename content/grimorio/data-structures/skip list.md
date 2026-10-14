@@ -248,6 +248,6 @@ Por otro lado, las desventajas son las siguientes:
 
 - [Skip Lists: A Probabilistic Alternative to Balanced Trees](https://15721.courses.cs.cmu.edu/spring2018/papers/08-oltpindexes1/pugh-skiplists-cacm1990.pdf)
 - [What Cannot be Skipped About the Skiplist](https://arxiv.org/html/2403.04582v2)
-- [[BRA2008]] - Capítulo 3.10: [Skip Lists: Randomized Data Structures]
+- [[BRA2008]] - Chapter 3.10.
 - [Diseño Skip List](https://skiplist.readthedocs.io/en/latest/design.html)
 
