@@ -1,78 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" width="100%" height="100%" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
-  <defs>
-    <style>
-      .node-circle { fill: #f4f7fa; stroke: #85a3c2; stroke-width: 2.5; }
-      .root-node { fill: #fdf3e7; stroke: #c16922; stroke-width: 2.5; }
-      .edge { stroke: #85a3c2; stroke-width: 2.5; stroke-linecap: round; }
-      .guide-line { stroke: #e2e8f0; stroke-width: 1.5; stroke-dasharray: 4 4; }
-      .level-label { font-size: 12px; fill: #94a3b8; font-weight: 500; }
-      .node-label { font-size: 14px; font-weight: bold; fill: #1e293b; text-anchor: middle; dominant-baseline: central; }
-      .card { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.5; rx: 8px; }
-      .card-title { font-size: 13px; font-weight: 700; }
-      .card-stat { font-size: 14px; font-weight: bold; }
-    </style>
-  </defs>
+<svg width="600" height="330" viewBox="0 0 600 330" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    text { font-family: 'Courier New', Courier, monospace; }
+    .frame        { fill: #f5f7fa; stroke: #9baec8; stroke-width: 1.5; }
+    .val-sm       { font-size: 15px; font-weight: 700; fill: #1a1a2e; text-anchor: middle; }
+    .link         { stroke: #9baec8; stroke-width: 1.8; fill: none; }
+    .idx          { font-size: 12px; fill: #777777; text-anchor: middle; }
+    .accent-label { font-size: 13px; font-weight: 700; fill: #c0742a; text-anchor: middle; }
+    .query        { fill: #f5f7fa; stroke: #c0742a; stroke-width: 1.8; }
+    @media (prefers-color-scheme: dark) {
+      .frame        { fill: #1e2330; stroke: #4a6fa5; }
+      .val-sm       { fill: #e2e8f0; }
+      .link         { stroke: #4a6fa5; }
+      .idx          { fill: #8899aa; }
+      .accent-label { fill: #d4884a; }
+      .query        { fill: #1e2330; stroke: #d4884a; }
+    }
+  </style>
 
-  <!-- Líneas guía de niveles de altura -->
-  <line x1="60" y1="70" x2="700" y2="70" class="guide-line"/>
-  <text x="45" y="74" class="level-label">h = 0</text>
-  <line x1="60" y1="120" x2="700" y2="120" class="guide-line"/>
-  <text x="45" y="124" class="level-label">h = 1</text>
-  <line x1="60" y1="170" x2="700" y2="170" class="guide-line"/>
-  <text x="45" y="174" class="level-label">h = 2</text>
-  <line x1="60" y1="220" x2="700" y2="220" class="guide-line"/>
-  <text x="45" y="224" class="level-label">h = 3</text>
-  <line x1="60" y1="270" x2="700" y2="270" class="guide-line"/>
-  <text x="45" y="274" class="level-label">h = 4</text>
+  <!-- niveles -->
+  <text x="32" y="54" class="idx">h = 0</text>
+  <text x="32" y="99" class="idx">h = 1</text>
+  <text x="32" y="144" class="idx">h = 2</text>
+  <text x="32" y="189" class="idx">h = 3</text>
+  <text x="32" y="234" class="idx">h = 4</text>
 
-  <!-- LADO IZQUIERDO: BST DEGENERADO {10, 20, 30, 40, 50} -->
-  <!-- Aristas BST -->
-  <line x1="130" y1="70" x2="170" y2="120" class="edge"/>
-  <line x1="170" y1="120" x2="210" y2="170" class="edge"/>
-  <line x1="210" y1="170" x2="250" y2="220" class="edge"/>
-  <line x1="250" y1="220" x2="290" y2="270" class="edge"/>
+  <!-- BST degenerado: claves 10 a 50 insertadas en orden -->
+  <line x1="122" y1="63.5" x2="138" y2="81.5" class="link"/>
+  <line x1="162" y1="108.5" x2="178" y2="126.5" class="link"/>
+  <line x1="202" y1="153.5" x2="218" y2="171.5" class="link"/>
+  <line x1="242" y1="198.5" x2="258" y2="216.5" class="link"/>
+  <circle cx="110" cy="50" r="18" class="query"/>
+  <text x="110" y="55" class="val-sm">10</text>
+  <circle cx="150" cy="95" r="18" class="frame"/>
+  <text x="150" y="100" class="val-sm">20</text>
+  <circle cx="190" cy="140" r="18" class="frame"/>
+  <text x="190" y="145" class="val-sm">30</text>
+  <circle cx="230" cy="185" r="18" class="frame"/>
+  <text x="230" y="190" class="val-sm">40</text>
+  <circle cx="270" cy="230" r="18" class="frame"/>
+  <text x="270" y="235" class="val-sm">50</text>
 
-  <!-- Nodos BST -->
-  <circle cx="130" cy="70" r="18" class="root-node"/>
-  <text x="130" y="70" class="node-label">10</text>
-  <circle cx="170" cy="120" r="18" class="node-circle"/>
-  <text x="170" y="120" class="node-label">20</text>
-  <circle cx="210" cy="170" r="18" class="node-circle"/>
-  <text x="210" y="170" class="node-label">30</text>
-  <circle cx="250" cy="220" r="18" class="node-circle"/>
-  <text x="250" y="220" class="node-label">40</text>
-  <circle cx="290" cy="270" r="18" class="node-circle"/>
-  <text x="290" y="270" class="node-label">50</text>
+  <!-- AVL con las mismas claves -->
+  <line x1="435.6" y1="60.8" x2="404.4" y2="84.2" class="link"/>
+  <line x1="464.4" y1="60.8" x2="495.6" y2="84.2" class="link"/>
+  <line x1="378" y1="108.5" x2="362" y2="126.5" class="link"/>
+  <line x1="522" y1="108.5" x2="538" y2="126.5" class="link"/>
+  <circle cx="450" cy="50" r="18" class="query"/>
+  <text x="450" y="55" class="val-sm">30</text>
+  <circle cx="390" cy="95" r="18" class="frame"/>
+  <text x="390" y="100" class="val-sm">20</text>
+  <circle cx="510" cy="95" r="18" class="frame"/>
+  <text x="510" y="100" class="val-sm">40</text>
+  <circle cx="350" cy="140" r="18" class="frame"/>
+  <text x="350" y="145" class="val-sm">10</text>
+  <circle cx="550" cy="140" r="18" class="frame"/>
+  <text x="550" y="145" class="val-sm">50</text>
 
-  <!-- Tarjeta resumen BST -->
-  <rect x="90" y="305" width="240" height="58" class="card"/>
-  <text x="105" y="326" class="card-title" fill="#b91c1c">BST: h = n - 1 (4)</text>
-  <text x="105" y="347" class="card-stat" fill="#475569">Búsqueda: <tspan fill="#b91c1c">O(n)</tspan></text>
-
-  <!-- LADO DERECHO: AVL BALANCEADO {10, 20, 30, 40, 50} -->
-  <!-- Aristas AVL -->
-  <line x1="560" y1="70" x2="490" y2="120" class="edge"/>
-  <line x1="560" y1="70" x2="630" y2="120" class="edge"/>
-  <line x1="490" y1="120" x2="450" y2="170" class="edge"/>
-  <line x1="630" y1="120" x2="670" y2="170" class="edge"/>
-
-  <!-- Nodos AVL -->
-  <!-- Raíz: 30 -->
-  <circle cx="560" cy="70" r="18" class="root-node"/>
-  <text x="560" y="70" class="node-label">30</text>
-  <!-- Nivel 1: 20 y 40 -->
-  <circle cx="490" cy="120" r="18" class="node-circle"/>
-  <text x="490" y="120" class="node-label">20</text>
-  <circle cx="630" cy="120" r="18" class="node-circle"/>
-  <text x="630" y="120" class="node-label">40</text>
-  <!-- Nivel 2: 10 y 50 -->
-  <circle cx="450" cy="170" r="18" class="node-circle"/>
-  <text x="450" y="170" class="node-label">10</text>
-  <circle cx="670" cy="170" r="18" class="node-circle"/>
-  <text x="670" y="170" class="node-label">50</text>
-
-  <!-- Tarjeta resumen AVL -->
-  <rect x="440" y="305" width="240" height="58" class="card"/>
-  <text x="455" y="326" class="card-title" fill="#047857">AVL: h = ⌊log₂ n⌋ (2)</text>
-  <text x="455" y="347" class="card-stat" fill="#475569">Búsqueda: <tspan fill="#047857">O(log n)</tspan></text>
+  <!-- resumen -->
+  <rect x="70" y="262" width="240" height="52" rx="6" class="frame"/>
+  <text x="190" y="282" class="val-sm">BST: h = n - 1 = 4</text>
+  <text x="190" y="302" class="accent-label">búsqueda O(n)</text>
+  <rect x="330" y="262" width="240" height="52" rx="6" class="frame"/>
+  <text x="450" y="282" class="val-sm">AVL: h = ⌊log₂ n⌋ = 2</text>
+  <text x="450" y="302" class="accent-label">búsqueda O(log n)</text>
 </svg>
