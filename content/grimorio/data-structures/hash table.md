@@ -325,5 +325,5 @@ Para mitigar problemas:
 - Puede romper reproducibilidad exacta entre ejecuciones (el orden interno cambia).
 
 ## 6. Referencias y recursos
-- [[COR2011]] - Chapter 11: Hash Tables
-- [[DRO1995]] - Chapter 10: Hashing
+- [[COR2011]] - Chapter 11.
+- [[DRO1995]] - Chapter 10.
