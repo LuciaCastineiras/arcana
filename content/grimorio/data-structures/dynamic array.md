@@ -70,13 +70,13 @@ El simple redimensiona al llenarse y es óptimo para agregar al final, pero inse
 
 \*depende de si hay destructores o se necesita copiar.
 
-†vale sin _shrinking_ automático: extraer no redimensiona ni copia elementos, solo decrementa `size` (en el circular, además avanza `inicio`). Con _shrinking_ ([Variantes](#variantes)), una extracción puede disparar una copia, y pasa a $O(1)$ amortizado, $O(n)$ peor caso.
+†vale sin _shrinking_ automático: extraer no redimensiona ni copia elementos, solo decrementa `size` (en el circular, además avanza `inicio`). Con _shrinking_ ([[#Variantes]]), una extracción puede disparar una copia, y pasa a $O(1)$ amortizado, $O(n)$ peor caso.
 
 **Espacio:** $O(n)$ en ambos casos.
 
 ### Detalles operativos
 
-La redimensión ocurre cuando `size == capacidad` y cuesta $O(n)$ → por eso se duplica la capacidad en vez de crecer de a uno, lo que amortiza el costo a $O(1)$ por inserción. Insertar o eliminar en posición `i` desplaza `n-i` elementos. La memoria reservada pero no usada nunca se libera sola (salvo con _shrinking_): es responsabilidad del programador reducir la capacidad explícitamente.
+La redimensión ocurre cuando `size == capacidad` y cuesta $O(n)$ → por eso se duplica la capacidad en vez de crecer de a uno, lo que amortiza el costo a $O(1)$ por inserción. Insertar o eliminar en posición `i` desplaza `n-i` elementos. Sin _shrinking_, la memoria reservada pero no usada nunca se libera sola: es responsabilidad del programador reducir la capacidad explícitamente.
 
 El array circular evita desplazamientos en los extremos con aritmética modular: el índice físico de la posición lógica `i` es `(inicio + i) % capacidad`. El precio es un problema de ambigüedad: si `inicio == fin`, ¿el array está vacío o lleno? La solución estándar es sacrificar una celda o mantener un contador separado.
 
